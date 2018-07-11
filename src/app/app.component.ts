@@ -15,6 +15,8 @@ export class AppComponent implements OnInit {
 	boards: Board[] = [];	
 	setup: boolean = true;
 	ships: number = 5;
+	winner: number;
+	message: string = 'Click the board to set your ships';
 
 	ngOnInit() {
 		this.constructBoard();
@@ -51,6 +53,7 @@ export class AppComponent implements OnInit {
   	this.playerId++;
   	this.constructBoard();
   	this.playerId = 1;
+  	this.message = 'Begin!'
   }
 
   getRandomNumber(min, max) {
@@ -67,7 +70,7 @@ export class AppComponent implements OnInit {
   
   action(board, x) {
   	if(!this.setup && (board.id != this.playerId)) {
-  		this.fire(x);
+  		this.fire(x, board);
   	} else {
   		this.addShip(x);
   	}
@@ -86,26 +89,57 @@ export class AppComponent implements OnInit {
 		}
   }
 
-  fire(x) {
-  	if(x.isShip) {
+  fire(x, board) {
+  	if(x.isShip && x.display == 'O') {
   		x.display = 'H';
   		x.hit = true;
-  	} else {
+  		console.log('Player ' + this.playerId + ' hit');
+  	} else if (!x.isShip && x.display == 'O') {
   		x.display = 'M';
+  		console.log('Player ' + this.playerId + ' missed');
+  	} else if (x.diplay == 'O') {
+  		console.log('Already taken');
   	}
+
+  	console.log('board', board.id);
+  	console.log('player', this.playerId);
+  	if(this.checkVictory(board.tiles) == 5) {
+  		this.winner = this.playerId;
+  	}
+
   	if(this.playerId == 1) {
   		this.playerId++;
   		this.computerPlay();
   	} else {
   		this.playerId--;
   	}
+  }
 
+  checkVictory(tiles) {
+  	let hits = 0
+  	tiles.forEach((y) => {
+  		y.forEach((x) => {
+  			if(x.hit) {
+  				hits++
+  			}
+  		})
+  	})
+  	return hits;
   }
 
   computerPlay() {
-  	let y = this.getRandomNumber(0,4);
-  	let x = this.getRandomNumber(0,4);
+  	let isValid = false;
 
-  	this.fire(this.boards[0].tiles[x][y]);
+  	while(!isValid) {
+  		let y = this.getRandomNumber(0,4);
+	  	let x = this.getRandomNumber(0,4);
+	  	let tile = this.boards[0].tiles[x][y];
+  		if(tile.display == 'O') {
+  			this.fire(tile, this.boards[0]);
+  			isValid = true;
+  		}
+  	}
+
+  	
   }
 }
