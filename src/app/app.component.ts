@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
 	setup: boolean = true;
 	ships: number = 5;
 	winner: number;
-	message: string = 'Click the board to set your ships';
+	message: string = 'Click the board to set your ships.';
 
 	ngOnInit() {
 		this.constructBoard();
@@ -53,7 +53,7 @@ export class AppComponent implements OnInit {
   	this.playerId++;
   	this.constructBoard();
   	this.playerId = 1;
-  	this.message = 'Begin!'
+  	this.message = 'Click your opponents squares to fire.'
   }
 
   getRandomNumber(min, max) {
@@ -81,8 +81,12 @@ export class AppComponent implements OnInit {
   		return;
   	}
 
-  	x.isShip = true;
-		this.ships--;
+  	if(!x.isShip) {
+  		x.isShip = true;
+			this.ships--;
+  	} else {
+  		return;
+  	}
 
 		if(this.ships == 0) {
 			this.startGame();
@@ -93,17 +97,20 @@ export class AppComponent implements OnInit {
   	if(x.isShip && x.display == 'O') {
   		x.display = 'H';
   		x.hit = true;
-  		console.log('Player ' + this.playerId + ' hit');
+  		console.log('Player ' + this.playerId + ' hit.');
   	} else if (!x.isShip && x.display == 'O') {
   		x.display = 'M';
-  		console.log('Player ' + this.playerId + ' missed');
+  		console.log('Player ' + this.playerId + ' missed.');
   	} else if (x.diplay != 'O') {
   		console.log('Already taken');
   		return;
   	}
 
+  	// this.message = 'Click your opponents squares to fire.'
+
   	if(this.checkVictory(board.tiles) == 5) {
   		this.winner = this.playerId;
+  		this.message = 'Player ' + this.winner + ' wins!';
   	}
 
   	if(this.playerId == 1) {
@@ -123,6 +130,7 @@ export class AppComponent implements OnInit {
   			}
   		})
   	})
+  	console.log(this.playerId + ' has ' + hits + ' hits')
   	return hits;
   }
 
