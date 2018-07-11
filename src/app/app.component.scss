@@ -1,0 +1,29 @@
+table {
+  border-collapse: collapse;
+  opacity: 1;
+  margin: 0 auto;
+
+  tr {
+		th, td {
+		  text-align: center;
+		  padding: 10px;
+		  border: 1px solid #dadada;
+		  transition: all .25s ease-in-out;
+		  color: #dadada;
+
+		  &:hover {
+		  	color: #333;
+		  }
+
+		  &.hit {
+		  	background: #e74c3c;
+		  	color: white;
+		  }
+
+		  &.miss {
+		  	background: #eee;
+		  	color: #dadada;
+		  }
+		}
+	}
+}
