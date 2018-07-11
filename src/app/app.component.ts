@@ -67,7 +67,7 @@ export class AppComponent implements OnInit {
   
   action(board, x) {
   	if(!this.setup && (board.id != this.playerId)) {
-  		this.fire(board, x);
+  		this.fire(x);
   	} else {
   		this.addShip(x);
   	}
@@ -86,7 +86,7 @@ export class AppComponent implements OnInit {
 		}
   }
 
-  fire(board, x) {
+  fire(x) {
   	if(x.isShip) {
   		x.display = 'H';
   	} else {
@@ -94,8 +94,16 @@ export class AppComponent implements OnInit {
   	}
   	if(this.playerId == 1) {
   		this.playerId++;
+  		this.computerPlay();
   	} else {
   		this.playerId--;
   	}
+  }
+
+  computerPlay() {
+  	let y = this.getRandomNumber(0,4);
+  	let x = this.getRandomNumber(0,4);
+
+  	this.fire(this.boards[0].tiles[x][y]);
   }
 }
