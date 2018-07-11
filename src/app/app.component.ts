@@ -136,7 +136,6 @@ export class AppComponent implements OnInit {
   			}
   		})
   	})
-  	console.log(this.playerId + ' has ' + hits + ' hits')
   	return hits;
   }
 
