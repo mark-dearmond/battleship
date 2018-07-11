@@ -69,7 +69,7 @@ export class AppComponent implements OnInit {
 	}
   
   action(board, x) {
-  	if(!this.setup && (board.id != this.playerId)) {
+  	if(!this.setup && (board.id != this.playerId) && !this.winner) {
   		this.fire(x, board);
   	} else {
   		this.addShip(x);
@@ -146,7 +146,9 @@ export class AppComponent implements OnInit {
   			isValid = true;
   		}
   	}
+  }
 
-  	
+  replay() {
+  	location.reload();
   }
 }

@@ -1,3 +1,18 @@
+.game-over {
+	opacity: .5;
+
+	table tr td {
+		&:hover {
+			color: #dadada;
+			cursor: not-allowed;
+		}
+
+		&.ship:hover {
+			color: #95a5a6;
+		}
+	}
+}
+
 table {
   border-collapse: collapse;
   opacity: 1;

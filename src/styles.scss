@@ -14,3 +14,20 @@ body {
 		flex: 1;
 	}
 }
+
+.btn {
+	background: #34495e;
+	color: white;
+	padding: 20px;
+	display: inline-block;
+	text-decoration: none;
+	transition: background .25s ease-in-out;
+	font-size: 12px;
+	letter-spacing: 3px;
+	text-transform: uppercase;
+
+	&:hover {
+		background: lighten(#34495e, 5%);
+		cursor: pointer;
+	}
+}

@@ -2,7 +2,7 @@
 
 <p>{{ message }}</p>
 
-<div class="flex-grid">
+<div class="flex-grid" [class.game-over]="winner">
 	<div class="col" *ngFor="let board of boards">
 		<h3>Player: {{ board.player.id }}</h3>
 		<table>
@@ -18,4 +18,8 @@
 		</table>
 	</div>
 </div>
+
+<p>
+	<a class="btn" *ngIf="winner" (click)="replay()">Replay</a>
+</p>
 
