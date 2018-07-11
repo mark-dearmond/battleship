@@ -1,0 +1,16 @@
+<h1 class="text-center">Battleship</h1>
+
+<div class="flex-grid">
+	<div class="col">
+		<table>
+			<tr *ngFor="let y of board.tiles">
+				<td *ngFor="let x of y" 
+					  (click)="fire(x)"
+					  [class.hit]="x.display == 'H'"
+					  [class.miss]="x.display == 'M'">
+					{{x.display}}
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>
