@@ -2,10 +2,10 @@
 
 <p>{{ message }}</p>
 
-<div class="flex-grid" [class.game-over]="winner">
+<div class="flex-grid">
 	<div class="col" *ngFor="let board of boards">
 		<h3>Player: {{ board.player.id }}</h3>
-		<table>
+		<table [class.game-over]="winner">
 			<tr *ngFor="let y of board.tiles">
 				<td *ngFor="let x of y" 
 					  (click)="action(board, x)"
