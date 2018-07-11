@@ -89,6 +89,7 @@ export class AppComponent implements OnInit {
   fire(x) {
   	if(x.isShip) {
   		x.display = 'H';
+  		x.hit = true;
   	} else {
   		x.display = 'M';
   	}
@@ -98,6 +99,7 @@ export class AppComponent implements OnInit {
   	} else {
   		this.playerId--;
   	}
+
   }
 
   computerPlay() {
