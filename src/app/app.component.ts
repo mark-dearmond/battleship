@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from './location';
 import { Board } from './board';
+import { Player } from './player';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,9 @@ export class AppComponent implements OnInit {
 
 	playerId: number = 1;
 	boardSize: number = 5;
-	board: Board;	
+	boards: Board[] = [];	
+	setup: boolean = true;
+	ships: number = 5;
 
 	ngOnInit() {
 		this.constructBoard();
@@ -19,48 +22,80 @@ export class AppComponent implements OnInit {
 
 	constructBoard() {
   	let tiles = [];
-  	let isShip = false;
-  	let shipCount = 0;
   	for (var y = 0; y < this.boardSize; y++) {
   		tiles[y] = [];
   		for (var x = 0; x < this.boardSize; x++) {
-  			if(shipCount < 5) {
-  				let randomNum = this.getRandomNumber(1, 5);
-	  			if(randomNum == 3) {
-	  				isShip = true;
-	  				shipCount++;
-	  			}
-  			}
   			tiles[y][x] = new Location({
-  				isShip: isShip,
+  				isShip: false,
 				  hit: false,
 				  display: 'O'
   			})
-  			isShip = false;
   		}
   	}
 
-  	// this.setRandomShips(tiles);
-
-  	this.board = new Board({
+  	let board = new Board({
+  		id: this.playerId,
+  		player: new Player({ id: this.playerId }),
   		tiles: tiles
   	})
 
+  	if(board.player.id > 1) {
+  		tiles = this.setRandomShips(tiles);
+  	}
+
+  	this.boards.push(board);
+  }
+
+  startGame() {
+  	this.setup = false;
+  	this.playerId++;
+  	this.constructBoard();
+  	this.playerId = 1;
   }
 
   getRandomNumber(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 	}
 
-	// setRandomShips(tiles) {
-	// 	let shipCount = 0
-	// }
+	setRandomShips(tiles) {
+		let shipCount = 0;
+		tiles.forEach((y) => {
+			y[this.getRandomNumber(0,4)].isShip = true;
+		})
+		return tiles;
+	}
   
-  fire(x) {
+  action(board, x) {
+  	if(!this.setup && (board.id != this.playerId)) {
+  		this.fire(board, x);
+  	} else {
+  		this.addShip(x);
+  	}
+  }
+
+  addShip(x) {
+  	if(this.ships == 0) {
+  		return;
+  	}
+
+  	x.isShip = true;
+		this.ships--;
+
+		if(this.ships == 0) {
+			this.startGame();
+		}
+  }
+
+  fire(board, x) {
   	if(x.isShip) {
   		x.display = 'H';
   	} else {
   		x.display = 'M';
+  	}
+  	if(this.playerId == 1) {
+  		this.playerId++;
+  	} else {
+  		this.playerId--;
   	}
   }
 }
