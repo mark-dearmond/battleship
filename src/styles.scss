@@ -1,5 +1,6 @@
 body {
 	font-family: 'Helvetica', 'Arial', sans-serif;
+	text-align: center;
 }
 
 .flex-grid {
@@ -12,8 +13,4 @@ body {
 	.col {
 		flex: 1;
 	}
-}
-
-.text-center {
-	text-align: center
 }

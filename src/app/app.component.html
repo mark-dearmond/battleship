@@ -1,10 +1,10 @@
-<h1 class="text-center">Battleship</h1>
+<h1>Battleship</h1>
 
 <p *ngIf="setup" class="text-center">Click the board to set your ships</p>
 
 <div class="flex-grid">
 	<div class="col" *ngFor="let board of boards">
-		<h3 class="text-center">Player: {{ board.player.id }}</h3>
+		<h3>Player: {{ board.player.id }}</h3>
 		<table>
 			<tr *ngFor="let y of board.tiles">
 				<td *ngFor="let x of y" 
@@ -16,8 +16,7 @@
 				</td>
 			</tr>
 		</table>
-		board{{board.player.id}}
-		playerid{{playerId}}
+		<p *ngIf="board.win">Winner!</p>
 	</div>
 </div>
 
