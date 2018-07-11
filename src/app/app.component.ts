@@ -64,8 +64,8 @@ export class AppComponent implements OnInit {
 		let shipCount = 0;
     let y, x;
     while (shipCount < 5) {
-      y = this.getRandomNumber(0,4);
-      x = this.getRandomNumber(0,4);
+      y = this.getRandomNumber(0,this.boardSize - 1);
+      x = this.getRandomNumber(0,this.boardSize - 1);
       if(!tiles[y][x].isShip) {
         tiles[y][x].isShip = true;
         shipCount++;
@@ -112,8 +112,6 @@ export class AppComponent implements OnInit {
   		return;
   	}
 
-  	// this.message = 'Click your opponents squares to fire.'
-
   	if(this.checkVictory(board.tiles) == 5) {
   		this.winner = this.playerId;
   		this.message = 'Player ' + this.winner + ' wins!';
@@ -143,8 +141,8 @@ export class AppComponent implements OnInit {
   	let isValid = false;
 
   	while(!isValid) {
-  		let y = this.getRandomNumber(0,4);
-	  	let x = this.getRandomNumber(0,4);
+  		let y = this.getRandomNumber(0,this.boardSize - 1);
+	  	let x = this.getRandomNumber(0,this.boardSize - 1);
 	  	let tile = this.boards[0].tiles[x][y];
   		if(tile.display == 'O') {
   			this.fire(tile, this.boards[0]);
