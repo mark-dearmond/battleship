@@ -62,9 +62,15 @@ export class AppComponent implements OnInit {
 
 	setRandomShips(tiles) {
 		let shipCount = 0;
-		tiles.forEach((y) => {
-			y[this.getRandomNumber(0,4)].isShip = true;
-		})
+    let y, x;
+    while (shipCount < 5) {
+      y = this.getRandomNumber(0,4);
+      x = this.getRandomNumber(0,4);
+      if(!tiles[y][x].isShip) {
+        tiles[y][x].isShip = true;
+        shipCount++;
+      }
+    }
 		return tiles;
 	}
   
