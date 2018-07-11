@@ -97,12 +97,11 @@ export class AppComponent implements OnInit {
   	} else if (!x.isShip && x.display == 'O') {
   		x.display = 'M';
   		console.log('Player ' + this.playerId + ' missed');
-  	} else if (x.diplay == 'O') {
+  	} else if (x.diplay != 'O') {
   		console.log('Already taken');
+  		return;
   	}
 
-  	console.log('board', board.id);
-  	console.log('player', this.playerId);
   	if(this.checkVictory(board.tiles) == 5) {
   		this.winner = this.playerId;
   	}
